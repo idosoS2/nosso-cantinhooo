@@ -166,5 +166,274 @@ h1{font-family:"DM Serif Display",serif;font-size:clamp(45px, 10vw, 100px);line-
 /* Envelope Desdobrável */
 .envelope-box{max-width:600px;margin:0 auto;text-align:center}
 .envelope{
-  background:linear-gradient(135deg, #230d1d, #1407
-  
+  background:linear-gradient(135deg, #230d1d, #140712);
+  border:1px solid rgba(255,181,203,0.3);border-radius:24px;
+  padding:40px 20px;cursor:pointer;transition:0.4s ease;
+}
+.envelope:hover{border-color:rgba(255,181,203,0.6);transform:translateY(-4px)}
+.envelope-icon{font-size:60px;margin-bottom:12px;display:inline-block;transition:transform .3s}
+.envelope:hover .envelope-icon{transform:scale(1.1) rotate(-5deg)}
+.letter-content{
+  display:none;margin-top:25px;padding:40px 30px;text-align:center;
+  animation:slideUp .7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes slideUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.letter-content p{max-width:580px;margin:16px auto;color:#e0d2d9;line-height:1.85;font-size:15px;font-weight:300}
+
+/* Configurações da Música Personalizada */
+.music-config-box{
+  margin-top:20px;padding:15px;background:rgba(255,255,255,0.03);
+  border-radius:16px;border:1px solid rgba(255,255,255,0.08);display:inline-block;
+}
+.music-config-box input{
+  background:rgba(0,0,0,0.4);border:1px solid rgba(255,181,203,0.3);
+  color:#fff;padding:8px 14px;border-radius:50px;font-size:12px;width:230px;outline:none;
+}
+
+footer{
+  text-align:center;padding:60px 20px 30px;color:#7c6d76;font-size:12px;
+  border-top:1px solid rgba(255, 255, 255, 0.05);
+}
+
+@media(max-width:768px){
+  .cards, .gallery-grid{grid-template-columns:1fr}
+  section{padding:65px 16px}
+  .counter-grid{grid-template-columns:repeat(2, 1fr)}
+  .scratch-container{height:200px}
+}
+</style>
+</head>
+<body>
+
+<div class="noise"></div>
+<canvas id="canvas-particles"></canvas>
+<canvas id="canvas-confetti"></canvas>
+
+<!-- Elemento de Áudio Oculto (Musica de Fundo) -->
+<audio id="bgAudio" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-love-112188.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Botões de Controle de Som Flutuantes -->
+<div class="floating-controls">
+  <button class="control-btn" id="muteBtn" onclick="toggleMute()">
+    <span id="muteIcon">🔊</span> Som: ON
+  </button>
+  <button class="control-btn" id="musicBtn" onclick="toggleMusic()">
+    <span id="musicIcon">🎵</span> Música
+  </button>
+</div>
+
+<!-- Hero Section -->
+<header class="hero">
+ <div class="hero-inner">
+  <div class="badge">✨ Nosso 1º Mês de Namoro ✨</div>
+  <h1>Para a Mulher da<br><span class="gradient-text">Minha Vida ❤️</span> <span class="cursive">Minha Princesa Linda</span></h1>
+  <p>Há exatamente 1 mês eu dei o passo mais certo da minha vida. Criei esse cantinho cheio de surpresas e efeitos só para comemorar o nosso amor!</p>
+  <button class="btn-main" onclick="playChime(); location.href='#tempo'">Explorar Nosso Cantinho ↓</button>
+ </div>
+</header>
+
+<!-- Contador em Tempo Real -->
+<section id="tempo">
+ <div class="container">
+  <div class="glass counter-box">
+   <div class="counter-date">28 DE SETEMBRO — 28 DE OUTUBRO DE 2026</div>
+   <div class="counter-number">1 MÊS JUNTINHOS 🎉</div>
+   <div class="counter-grid">
+     <div class="time-card"><div class="time-val" id="dias">30</div><div class="time-lbl">Dias</div></div>
+     <div class="time-card"><div class="time-val" id="horas">00</div><div class="time-lbl">Horas</div></div>
+     <div class="time-card"><div class="time-val" id="mins">00</div><div class="time-lbl">Minutos</div></div>
+     <div class="time-card"><div class="time-val" id="secs">00</div><div class="time-lbl">Segundos</div></div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- NOVIDADE 1: Raspadinha do Amor -->
+<section>
+ <div class="container">
+  <h2 class="section-title">Raspadinha do Nosso Amor 🔍</h2>
+  <p class="subtitle">Passe o dedo ou o mouse por cima da raspadinha para revelar o segredo guardado!</p>
+  <div class="scratch-container">
+    <div class="scratch-secret">
+      <h4>Você é o Meu Presente! 🎁</h4>
+      <p>Nenhum presente no mundo chega perto do privilégio de ter você como minha namorada. Te amo demais! ❤️</p>
+    </div>
+    <canvas id="scratchCanvas"></canvas>
+  </div>
+ </div>
+</section>
+
+<!-- NOVIDADE 2: Sorteador de Próximos Encontros -->
+<section>
+ <div class="container">
+  <h2 class="section-title">Caixinha dos Próximos Encontros 🎲</h2>
+  <p class="subtitle">O que vamos fazer no nosso próximo encontro? Clique no botão para sortear!</p>
+  <div class="glass roulette-box">
+    <div class="roulette-card" id="rouletteResult">❓ Clique no botão abaixo para sortear...</div>
+    <button class="btn-main" onclick="spinRoulette()">Sortear Nosso Encontro! 💖</button>
+  </div>
+ </div>
+</section>
+
+<!-- Razões pelas quais te amo -->
+<section>
+ <div class="container">
+  <h2 class="section-title">Por que você é tão especial?</h2>
+  <p class="subtitle">Trinta dias foram suficientes para me dar a certeza absoluta sobre nós dois.</p>
+  <div class="cards">
+   <div class="glass card" onmouseenter="playPop()">
+    <div class="icon-box">👑</div>
+    <h3>O Seu Sorriso</h3>
+    <p>O seu sorriso ilumina qualquer dia cinzento. É impossível olhar para você e não me apaixonar de novo.</p>
+   </div>
+   <div class="glass card" onmouseenter="playPop()">
+    <div class="icon-box">🌷</div>
+    <h3>Seu Carinho Doce</h3>
+    <p>A forma carinhosa como você cuida de mim, suas brincadeiras e a paz incomparável que você me transmite.</p>
+   </div>
+   <div class="glass card" onmouseenter="playPop()">
+    <div class="icon-box">💍</div>
+    <h3>Nossa Sintonia</h3>
+    <p>Como a gente se entende no olhar. Ficar com você é fácil, leve e é a melhor parte do meu dia.</p>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- Linha do Tempo -->
+<section>
+ <div class="container">
+  <h2 class="section-title">Nossa História</h2>
+  <p class="subtitle">Algumas datas dividem a vida em antes e depois.</p>
+  <div class="timeline">
+   <div class="event">
+    <span class="dot"></span>
+    <small>28 DE SETEMBRO DE 2026</small>
+    <h3>O Começo do Nosso Namoro ❤️</h3>
+    <p>O dia em que officially prometemos cuidar um do outro. O início do melhor capítulo da minha vida.</p>
+   </div>
+   <div class="event">
+    <span class="dot"></span>
+    <small>PRIMEIRAS SEMANAS</small>
+    <h3>Memórias Incríveis</h3>
+    <p>Muitas risadas, conversas compridas, cafunés, saudades no meio do dia e a certeza de que nascemos um pro outro.</p>
+   </div>
+   <div class="event">
+    <span class="dot"></span>
+    <small>28 DE OUTUBRO DE 2026</small>
+    <h3>Nosso 1º Mês Completo 🎉</h3>
+    <p>Comemorando 30 dias de muito amor, parceria, abraços apertados e beijos.</p>
+   </div>
+   <div class="event">
+    <span class="dot"></span>
+    <small>O FUTURO</small>
+    <h3>Para Sempre...</h3>
+    <p>Isso é só o começo de uma história linda que vamos escrever juntas por muitos e muitos anos.</p>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- Galeria Polaroid 3D -->
+<section>
+ <div class="container">
+  <h2 class="section-title">Nossas Fotos & Lembranças 📸</h2>
+  <p class="subtitle">Clique nas polaroids para ver as memórias em destaque.</p>
+  <div class="gallery-grid">
+   <div class="polaroid" onclick="playChime(); showPhoto('Nosso primeiro olhar inesquecível ❤️', 'https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=600&q=80')">
+    <div class="polaroid-img">
+      <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=600&q=80" alt="Foto 1">
+    </div>
+    <div class="polaroid-caption">O começo de tudo ✨</div>
+   </div>
+   <div class="polaroid" onclick="playChime(); showPhoto('Você fica perfeita em todas as fotos 🌹', 'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=600&q=80')">
+    <div class="polaroid-img">
+      <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=600&q=80" alt="Foto 2">
+    </div>
+    <div class="polaroid-caption">Minha pessoa favorita 💖</div>
+   </div>
+   <div class="polaroid" onclick="playChime(); showPhoto('Amo estar ao seu lado! 💍', 'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=600&q=80')">
+    <div class="polaroid-img">
+      <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=600&q=80" alt="Foto 3">
+    </div>
+    <div class="polaroid-caption">Momentos mágicos 🌟</div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- Carta de Amor com Envelope Desdobrável -->
+<section>
+ <div class="container envelope-box">
+  <h2 class="section-title">Uma Carta do Seu Namorado 💌</h2>
+  <p class="subtitle">Clique no envelope abaixo para ler a mensagem especial que escrevi pra você.</p>
+
+  <div class="envelope" id="envelope" onclick="openEnvelope()">
+    <div class="envelope-icon">✉️</div>
+    <div style="color:#ffb8d1;font-weight:600;letter-spacing:2px;font-size:13px;text-transform:uppercase;">Toque para Abrir a Carta</div>
+  </div>
+
+  <div class="glass letter-content" id="letterContent">
+   <div style="font-size:35px;margin-bottom:10px">💖</div>
+   <h3 style="font-family:'DM Serif Display';font-size:28px;margin-bottom:18px;color:#fff">Minha Princesa,</h3>
+   <p>Faz exatamente um mês que eu disse 'sim' para a melhor história da minha vida. Nesses 30 dias, você se tornou o meu porto seguro, meu motivo de sorrir do nada olhando pro celular e minha melhor companhia.</p>
+   <p>Eu amo seu jeito, suas brincadeiras, seu carinho e a forma leve com que você faz qualquer dia ruim virar um dia incrível. Obrigado por me escolher e por me deixar te fazer feliz.</p>
+   <p>Que este seja apenas o 1º mês de centenas que ainda vamos comemorar lado a lado. Eu te amo demais! ❤️</p>
+  </div>
+ </div>
+</section>
+
+<!-- Surpresa Final com Explosão de Fogos e Corações -->
+<section>
+ <div class="container">
+  <div class="glass" style="padding:60px 25px;text-align:center">
+   <div class="badge">Surpresa Final</div>
+   <h2 class="section-title">Pronta para o Seu Presente Virtual?</h2>
+   <p class="subtitle">Aperte o botão abaixo para ativar a celebração de 1 mês!</p>
+   <button class="btn-main" style="padding:18px 42px;font-size:16px" onclick="triggerGrandSurprise()">Aperte Aqui, Meu Amor! 🎆💋</button>
+   <div id="finalMessage" style="margin-top:30px;min-height:80px;font-family:'DM Serif Display';font-size:clamp(20px, 4.5vw, 30px);color:#ffc0d3;line-height:1.4"></div>
+  </div>
+ </div>
+</section>
+
+<!-- Configuração Opcional da Música de Fundo -->
+<section style="padding:30px 20px">
+ <div class="container" style="text-align:center">
+  <div class="music-config-box">
+    <div style="font-size:12px;color:#a99da3;margin-bottom:8px">💡 Quer usar o link da 'Nossa Música'? Cole a URL abaixo:</div>
+    <input type="text" id="customMusicUrl" placeholder="Cole o link .mp3 aqui...">
+    <button onclick="applyCustomMusic()" style="background:#e75c86;border:0;color:#fff;padding:8px 16px;border-radius:50px;font-size:12px;cursor:pointer;margin-left:5px">Salvar</button>
+  </div>
+ </div>
+</section>
+
+<footer>
+ Criado com todo o amor do mundo pelo seu namorado. ❤️<br><br>
+ 28.09.2026 — 28.10.2026 • Nosso Primeiro Mês Inesquecível.
+</footer>
+
+<script>
+// ==========================================
+// 1. SINTETIZADOR DE EFEITOS SONOROS (WEB AUDIO API)
+// ==========================================
+let audioCtx = null;
+let soundMuted = false;
+
+function getAudioContext(){
+  if(!audioCtx){
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
+  if(audioCtx.state === 'suspended'){
+    audioCtx.resume();
+  }
+  return audioCtx;
+}
+
+function toggleMute(){
+  soundMuted = !soundMuted;
+  const btn = document.getElementById("muteBtn");
+  btn.innerHTML = soundMuted ? '🔇 Som: OFF' : '🔊 Som: ON';
+  const bg = document.getElementById("bgAudio");
+  bg.muted = 
