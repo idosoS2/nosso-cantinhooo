@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>1 Mês de Namoro - Para a Mulher da Minha Vida ❤️</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Alex+Brush&family=DM+Serif+Display:ital@0;1&family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#09040a;color:#fff;font-family:'Montserrat',sans-serif;overflow-x:hidden;user-select:none;-webkit-user-select:none}
+
+/* Fundo Iluminado & Efeito de Profundidade */
+body:before{
+  content:"";position:fixed;inset:0;pointer-events:none;
+  background:
+    radial-gradient(circle at 50% 15%, rgba(231, 92, 134, 0.22), transparent 45%),
+    radial-gradient(circle at 85% 70%, rgba(148, 27, 72, 0.2), transparent 50%),
+    radial-gradient(circle at 15% 85%, rgba(98, 14, 52, 0.25), transparent 45%);
+  z-index:-2;
+}
+
+.noise{
+  position:fixed;inset:0;opacity:.03;pointer-events:none;z-index:20;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+#canvas-particles, #canvas-confetti{position:fixed;inset:0;pointer-events:none}
+#canvas-particles{z-index:-1}
+#canvas-confetti{z-index:9999}
+
+/* Layout & Glassmorphism */
+section{padding:90px 20px;position:relative}
+.container{max-width:980px;margin:auto}
+
+.section-title{
+  text-align:center;font-family:"DM Serif Display",serif;
+  font-size:clamp(32px, 5.5vw, 50px);margin:0 0 10px;font-weight:400;
+  background:linear-gradient(135deg, #ffffff 30%, #ffb8d1 70%, #e75c86);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.subtitle{
+  text-align:center;color:#c7b3be;line-height:1.7;
+  max-width:620px;margin:0 auto 50px;font-weight:300;font-size:15px;
+}
+
+.glass{
+  background:linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+  border:1px solid rgba(255, 255, 255, 0.12);
+  border-radius:28px;
+  backdrop-filter:blur(16px);
+  box-shadow:0 30px 80px rgba(0, 0, 0, 0.65);
+}
+
+/* Controls Flutuantes (Som + Áudio) */
+.floating-controls{
+  position:fixed;bottom:20px;right:20px;z-index:100;
+  display:flex;align-items:center;gap:10px;
+}
+.control-btn{
+  background:rgba(20, 9, 22, 0.88);border:1px solid rgba(255, 181, 203, 0.3);
+  color:#ff9ebd;padding:12px 18px;border-radius:50px;backdrop-filter:blur(15px);
+  cursor:pointer;font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.5);transition:all .3s ease;
+}
+.control-btn:hover{transform:scale(1.05);border-color:rgba(255,181,203,0.7);color:#fff}
+
+/* Hero Section */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:40px 20px}
+.hero-inner{max-width:860px}
+.badge{
+  display:inline-flex;align-items:center;gap:8px;padding:8px 22px;border-radius:50px;
+  background:rgba(231, 92, 134, 0.18);border:1px solid rgba(255, 120, 160, 0.35);
+  color:#ff9ebd;font-size:12px;letter-spacing:3px;text-transform:uppercase;margin-bottom:25px;
+}
+h1{font-family:"DM Serif Display",serif;font-size:clamp(45px, 10vw, 100px);line-height:.95;margin:0 0 20px;font-weight:400}
+.cursive{font-family:'Alex Brush', cursive;font-size:1.3em;color:#ff8dae;display:block;margin-top:10px}
+.gradient-text{background:linear-gradient(110deg,#ffffff 10%,#ffc0d3 50%,#e75c86 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{max-width:580px;margin:0 auto;color:#d8c9d0;line-height:1.8;font-weight:300;font-size:16px}
+
+.btn-main{
+  display:inline-flex;align-items:center;gap:12px;margin-top:35px;padding:16px 36px;
+  border:1px solid rgba(255, 255, 255, 0.28);border-radius:100px;
+  background:linear-gradient(135deg, rgba(231, 92, 134, 0.45), rgba(255, 255, 255, 0.08));
+  color:#fff;text-decoration:none;transition:.4s ease;backdrop-filter:blur(10px);
+  font-weight:600;font-size:15px;box-shadow:0 10px 30px rgba(231, 92, 134, 0.3);
+  cursor:pointer;
+}
+.btn-main:hover{background:#ffffff;color:#130811;transform:translateY(-3px);box-shadow:0 15px 35px rgba(255, 181, 203, 0.4)}
+
+/* Contador */
+.counter-box{padding:50px 20px;text-align:center;position:relative;overflow:hidden}
+.counter-date{font-size:12px;letter-spacing:4px;color:#ff8dae;text-transform:uppercase;font-weight:600}
+.counter-number{font-family:"DM Serif Display";font-size:clamp(42px,10vw,85px);margin:12px 0;color:#fff}
+.counter-grid{display:grid;grid-template-columns:repeat(4, 1fr);gap:12px;max-width:520px;margin:25px auto 0}
+.time-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);padding:12px;border-radius:16px}
+.time-val{font-family:"DM Serif Display";font-size:26px;color:#ffb8d1}
+.time-lbl{font-size:10px;color:#9d8e96;text-transform:uppercase;letter-spacing:1px;margin-top:2px}
+
+/* Raspadinha de Amor */
+.scratch-container{
+  position:relative;width:100%;max-width:400px;height:240px;margin:0 auto;
+  border-radius:24px;overflow:hidden;border:2px solid rgba(255,181,203,0.3);
+  box-shadow:0 20px 40px rgba(0,0,0,0.5);
+}
+.scratch-secret{
+  position:absolute;inset:0;background:linear-gradient(135deg, #2b0b1a, #4a1228);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:20px;text-align:center;
+}
+.scratch-secret h4{font-family:"DM Serif Display";font-size:24px;color:#ffb8d1;margin:0 0 8px}
+.scratch-secret p{font-size:14px;color:#e3d4dc;margin:0;line-height:1.5}
+#scratchCanvas{position:absolute;inset:0;cursor:pointer;touch-action:none}
+
+/* Sorteador / Roleta de Encontros */
+.roulette-box{padding:40px 25px;text-align:center;max-width:600px;margin:auto}
+.roulette-card{
+  background:rgba(255,255,255,0.05);border:1px dashed rgba(255,181,203,0.4);
+  border-radius:20px;padding:30px 20px;margin:25px 0;min-height:120px;
+  display:flex;align-items:center;justify-content:center;font-size:20px;
+  font-family:"DM Serif Display";color:#ffc0d3;transition:all .3s ease;
+}
+
+/* Cards & Razões */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{padding:32px 24px;transition:.4s ease;position:relative}
+.card:hover{transform:translateY(-6px);border-color:rgba(255, 181, 203, 0.4)}
+.icon-box{
+  width:50px;height:50px;border-radius:16px;background:rgba(231, 92, 134, 0.15);
+  display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:18px;
+  border:1px solid rgba(255, 120, 160, 0.25);
+}
+.card h3{margin:0 0 10px;font-size:18px;color:#fff}
+.card p{color:#b2a3ab;line-height:1.7;font-size:14px;margin:0;font-weight:300}
+
+/* Timeline */
+.timeline{position:relative;max-width:700px;margin:auto}
+.timeline:before{content:"";position:absolute;left:18px;top:10px;bottom:10px;width:2px;background:linear-gradient(180deg, #e75c86, rgba(255,255,255,0.08))}
+.event{position:relative;padding:0 0 45px 50px}
+.dot{
+  position:absolute;left:10px;top:4px;width:18px;height:18px;border-radius:50%;
+  background:#e75c86;border:4px solid #09040a;box-shadow:0 0 15px #e75c86;
+}
+.event small{color:#ff8dae;letter-spacing:2px;font-weight:600;font-size:11px}
+.event h3{font-family:"DM Serif Display";font-size:24px;margin:6px 0;color:#fff}
+.event p{color:#b2a3ab;line-height:1.6;margin:0;font-size:14px;font-weight:300}
+
+/* Polaroids 3D */
+.gallery-grid{display:grid;grid-template-columns:repeat(3, 1fr);gap:20px}
+.polaroid{
+  background:#140c16;border:1px solid rgba(255,255,255,0.1);padding:14px 14px 22px;
+  border-radius:18px;text-align:center;transition:0.4s ease;cursor:pointer;
+  transform-style:preserve-3d;perspective:1000px;
+}
+.polaroid:hover{transform:scale(1.03) rotate(1deg);border-color:rgba(255, 141, 174, 0.5);box-shadow:0 20px 40px rgba(0,0,0,0.7)}
+.polaroid-img{
+  width:100%;height:210px;border-radius:12px;object-fit:cover;
+  background:linear-gradient(135deg,#200d23,#3d1028);
+  display:flex;align-items:center;justify-content:center;color:#ff8dae;font-size:32px;
+  margin-bottom:14px;overflow:hidden;
+}
+.polaroid-img img{width:100%;height:100%;object-fit:cover}
+.polaroid-caption{font-size:13px;color:#d3c5cb;font-weight:500}
+
+/* Envelope Desdobrável */
+.envelope-box{max-width:600px;margin:0 auto;text-align:center}
+.envelope{
+  background:linear-gradient(135deg, #230d1d, #1407
+  
